@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/5f11377bd7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <title>The Mental Health Nurse's Drug Buddy</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div
+      class="flex items-center justify-center min-h-screen bg-backgroundFull text-navyish"
+    >
+      <div
+        class="flex flex-col w-80 p-4 bg-white rounded-xl shadow-xl h-full md:flex-row md:w-1/2"
+      >
+        <div
+          id="information"
+          class="mb-6 md:mr-6 md:mb-0 border-['#13143B'] md:border-r-2 md:flex md:flex-col md:w-1/2 md:pr-5"
+        >
+          <h1 class="font-serif text-2xl mb-2 md:mb-2 md:mt-0">Drug Info</h1>
+          <select
+            name="Medication"
+            id="medication"
+            class="bg-['#F8F8F8'] p-2 appearance-none rounded-md mb-2 w-full md:py-1 px-2 md:mb-0 bg-slate-200 cursor-pointer"
+          >
+            <option value="0">Risperidone</option>
+            <option value="1">Sertraline</option>
+            <option value="2">Citalopram</option>
+            <option value="3">Quetiapine</option>
+            <option value="4">Fluoxetine</option>
+            <option value="5">Haloperidol</option>
+            <option value="6">Olanzapine</option>
+            <option value="7">Clozapine</option>
+            <option value="8">Flupentixol</option>
+            <option value="9">Zuclopenthixol</option>
+            <option value="10">Aripiprazole</option>
+            <option value="11">Amisulpride</option></select
+          ><br />
+          <div>
+            <p class="mb-2">Type: <span id="type"></span></p>
+          </div>
+          <div>
+            <p class="mb-2">
+              Common side-effects: <span id="side-effects"></span>
+            </p>
+          </div>
+        </div>
+
+        <div
+          id="calculator"
+          class="flex flex-col border-t md:border-none md:w-3/5"
+        >
+          <h1 class="font-serif text-2xl mb-2 mt-2 md:mt-0 text-orangy">
+            Dosage Calculator
+          </h1>
+          <select
+            id="medication-form"
+            class="p-2 appearance-none rounded-md mb-2 w-full m md:py-1 md:px-2 bg-slate-200 cursor-pointer"
+          >
+            <option value="liquids" id="liquids">Liquids</option>
+            <option value="tablets" id="tablets">Tablets</option>
+            <option value="iv" id="iv">IV</option>
+            <option value="concentrations" id="concentrations">
+              Concentrations
+            </option>
+          </select>
+          <div>
+            <label>What is your patient prescribed?</label>
+            <input
+              type="text"
+              class="mt-4 mb-2 w-10 p-1 text-sm border-b-2 border-black bg-inherit"
+              id="desired"
+            />
+            <select
+              id="weights-want"
+              class="h-6 appearance-none rounded-sm text-center text-sm cursor-pointer"
+              onchange="validate1()"
+            >
+              <option value="ml" id="ml">ml</option>
+              <option value="mg" id="mg">mg</option>
+              <option value="mcg" id="mcg">mcg</option>
+              <option value="g" id="g">g</option>
+            </select>
+          </div>
+          <div>
+            <label for="">What do you have?</label>
+            <input
+              type="text"
+              class="mt-4 mb-2 w-10 p-1 text-sm border-b-2 border-black bg-inherit"
+              id="at-hand"
+            />
+            <select
+              onchange="validate2()"
+              id="weights-have"
+              class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
+            >
+              <option value="ml">ml</option>
+              <option value="mg">mg</option>
+              <option value="mcg">mcg</option>
+              <option value="g">g</option>
+            </select>
+          </div>
+          <div class="visible" id="quantity-input">
+            <label>What is the volume?</label>
+            <input
+              type="text"
+              class="mt-4 mb-2 w-10 p-1 text-sm border-b-2 border-black bg-inherit"
+              id="quantity"
+            />
+            <select
+              id="weights-vol"
+              onchange="validate3()"
+              class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
+            >
+              <option value="ml">ml</option>
+              <option value="mg">mg</option>
+              <option value="mcg">mcg</option>
+              <option value="g">g</option>
+            </select>
+          </div>
+          <button id="submit"></button>
+          <p class="md:mt-10">Result = <span id="result"></span></p>
+          <div class="flex flex-row justify-between pt-6">
+            <a href="" id="bnf-link" target="_blank" class="place-self-start">
+              <span
+                style="background-color: #149ea5; padding: 3px"
+                class="font-extrabold"
+                >BNF</span
+              ></a
+            >
+            <span id="pills"><i class="fa-solid fa-tablets"></i></span>
+            <span id="injection"><i class="fa-solid fa-syringe"></i></span>
+            <span id="concentrations-img"
+              ><i class="fa-solid fa-flask-vial"></i
+            ></span>
+            <span id="bed-iv"><i class="fa-solid fa-bed-pulse"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
