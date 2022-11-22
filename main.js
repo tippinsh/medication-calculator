@@ -280,12 +280,6 @@ const iv = document.getElementById("iv");
 const concentrations = document.getElementById("concentrations");
 const toggleableElement = document.getElementById("quantity-input");
 
-// const ml = document.querySelectorAll("#weights-want option").forEach((opt) => {
-//   if (opt.value == "ml") {
-//     opt.disabled = true;
-//   }
-// });
-
 // Determines if the last div should be invisible or visible
 function toggleVolumeInput(e) {
   if (e === "tablets") {
@@ -295,18 +289,12 @@ function toggleVolumeInput(e) {
   }
 }
 
-function disableMl() {
-  const ml = document.querySelectorAll(".test option").forEach((opt) => {
-    if (opt.value == "ml") {
-      opt.disabled = true;
-    }
-  });
-}
+// Toggles whether ml is disable or not
 
-function enableMl() {
+function toggleMl(n) {
   const ml = document.querySelectorAll(".test option").forEach((opt) => {
     if (opt.value == "ml") {
-      opt.disabled = false;
+      opt.disabled = n;
     }
   });
 }
@@ -320,12 +308,17 @@ atHand.addEventListener("keypress", function (e) {
 });
 
 // Conditionally renders the volume input div - this is not applicable to tablet form so is hidden when this is selected and displayed when another but tablets is selected
+
 form.addEventListener("change", (e) => {
   let formValue = e.target.value;
   if (form.value === "tablets") {
     toggleVolumeInput(formValue);
-    disableMl();
-  } else if (form.value === "liquids") {
-    enableMl();
+    toggleMl(true);
+  } else if (
+    form.value === "liquids" ||
+    form.value === "iv" ||
+    form.value === "concentrations"
+  ) {
+    toggleMl(false);
   }
 });
