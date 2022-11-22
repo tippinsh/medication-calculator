@@ -83,6 +83,7 @@
             />
             <select
               id="weights-want"
+              class="test"
               class="h-6 appearance-none rounded-sm text-center text-sm cursor-pointer"
               onchange="validate1()"
             >
@@ -102,12 +103,13 @@
             <select
               onchange="validate2()"
               id="weights-have"
+              class="test"
               class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
             >
-              <option value="ml">ml</option>
-              <option value="mg">mg</option>
-              <option value="mcg">mcg</option>
-              <option value="g">g</option>
+              <option value="ml" id="ml1">ml</option>
+              <option value="mg" id="mg">mg</option>
+              <option value="mcg" id="mcg">mcg</option>
+              <option value="g" id="g">g</option>
             </select>
           </div>
           <div class="visible" id="quantity-input">
@@ -122,10 +124,10 @@
               onchange="validate3()"
               class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
             >
-              <option value="ml">ml</option>
-              <option value="mg">mg</option>
-              <option value="mcg">mcg</option>
-              <option value="g">g</option>
+              <option value="ml" id="ml">ml</option>
+              <option value="mg" id="mg">mg</option>
+              <option value="mcg" id="mcg">mcg</option>
+              <option value="g" id="g">g</option>
             </select>
           </div>
           <button id="submit"></button>
