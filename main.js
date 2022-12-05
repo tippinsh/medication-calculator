@@ -188,6 +188,8 @@ const drugs = [
   },
 ];
 
+const body = document.getElementsByTagName("BODY")[0];
+
 /* MEDICATION INFORMATION SECTION */
 
 // Medication selector and information side
@@ -275,15 +277,6 @@ function gramsToMg(grams) {
   return mg;
 }
 
-//Implements submit with enter keypress and displays result
-quantity.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    let dose = calculateResult();
-    result.innerHTML = dose;
-  }
-});
-
 // Declare variables for the form the medication comes in (e.g. liquid, tabs)
 const form = document.getElementById("medication-form");
 const liquids = document.getElementById("liquids");
@@ -294,6 +287,7 @@ const toggleableElement = document.querySelector(".visible");
 const submit = document.getElementById("submit-btn");
 
 // Determines if the last div should be invisible or visible
+
 function toggleVolumeInput(e) {
   if (e === "tablets") {
     toggleableElement.className = "invisible";
@@ -312,7 +306,10 @@ function toggleMl(n) {
   });
 }
 
-atHand.addEventListener("keypress", function (e) {
+/* Submit to calculate event listeners */
+
+//Calculate TABLET calculation with enter keypress or submit button
+body.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
     let dose = calculateTablet();
@@ -320,11 +317,20 @@ atHand.addEventListener("keypress", function (e) {
   }
 });
 
-// submit.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   let dose = calculateTablet();
-//   result.innerHTML = dose;
-// });
+submit.addEventListener("click", function (e) {
+  e.preventDefault();
+  let dose = calculateTablet();
+  result.innerHTML = dose;
+});
+
+//Calculate LIQUID calculation with enter keypress or submit button
+quantity.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    let dose = calculateResult();
+    result.innerHTML = dose;
+  }
+});
 
 /* Listens to the dosage calculator selector
 Conditionally renders the volume div and disables the ml option for when tablets is selected */
