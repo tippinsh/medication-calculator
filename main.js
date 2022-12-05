@@ -278,12 +278,12 @@ const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
 const iv = document.getElementById("iv");
 const concentrations = document.getElementById("concentrations");
-const toggleableElement = document.getElementById("quantity-input");
+const toggleableElement = document.querySelector(".visible");
 
 // Determines if the last div should be invisible or visible
 function toggleVolumeInput(e) {
   if (e === "tablets") {
-    toggleableElement.className = " invisible";
+    toggleableElement.className = "invisible";
   } else {
     toggleableElement.className = "visible";
   }
@@ -307,7 +307,8 @@ atHand.addEventListener("keypress", function (e) {
   }
 });
 
-// Conditionally renders the volume input div - this is not applicable to tablet form so is hidden when this is selected and displayed when another but tablets is selected
+/* Listens to the dosage calculator selector
+Conditionally renders the volume div and disables the ml option for when tablets is selected */
 
 form.addEventListener("change", (e) => {
   let formValue = e.target.value;
@@ -320,5 +321,6 @@ form.addEventListener("change", (e) => {
     form.value === "concentrations"
   ) {
     toggleMl(false);
+    toggleVolumeInput(formValue);
   }
 });
