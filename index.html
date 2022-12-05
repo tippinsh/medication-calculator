@@ -85,7 +85,6 @@
               id="weights-want"
               class="test"
               class="h-6 appearance-none rounded-sm text-center text-sm cursor-pointer"
-              onchange="validate1()"
             >
               <option value="ml" id="ml">ml</option>
               <option value="mg" id="mg">mg</option>
@@ -101,7 +100,6 @@
               id="at-hand"
             />
             <select
-              onchange="validate2()"
               id="weights-have"
               class="test"
               class="h-6 appearance-none rounded-md text-center text-sm"
@@ -121,7 +119,6 @@
             />
             <select
               id="weights-vol"
-              onchange="validate3()"
               class="h-6 appearance-none rounded-md text-center text-sm"
             >
               <option value="ml" id="ml">ml</option>
@@ -130,7 +127,12 @@
               <option value="g" id="g">g</option>
             </select>
           </div>
-          <button id="submit"></button>
+          <button
+            class="w-full p-2 bg-slate-200 my-3 rounded-md"
+            id="submit-btn"
+          >
+            Submit
+          </button>
           <p class="md:mt-10">Result = <span id="result"></span></p>
           <div class="flex flex-row justify-between pt-6">
             <a href="" id="bnf-link" target="_blank" class="place-self-start">

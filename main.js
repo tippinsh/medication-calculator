@@ -214,18 +214,29 @@ const atHand = document.getElementById("at-hand");
 const quantity = document.getElementById("quantity");
 const result = document.getElementById("result");
 
-function validate1() {
-  const select = document.getElementById("weights-want").value;
-  return select;
-}
-function validate2() {
-  const select = document.getElementById("weights-have").value;
-  return select;
-}
-function validate3() {
-  const select = document.getElementById("weights-vol").value;
-  return select;
-}
+const weightWantSelector = document.getElementById("weights-want");
+const weightHaveSelector = document.getElementById("weights-have");
+const weightVolSelector = document.getElementById("weights-vol");
+
+let resultForWant = null;
+let resultForHave = null;
+let resultForVol = null;
+
+//Event listeners for the calculator volume type selection
+weightWantSelector.addEventListener("change", function handleEvent(e) {
+  resultForWant = e.target.value;
+  return resultForWant;
+});
+
+weightHaveSelector.addEventListener("change", function handleEvent(e) {
+  resultForHave = e.target.value;
+  return resultForHave;
+});
+
+weightVolSelector.addEventListener("change", function handleEvent(e) {
+  resultForVol = e.target.value;
+  return resultForVol;
+});
 
 // Calculate dose result for liquids
 function calculateResult() {
@@ -239,16 +250,17 @@ function calculateResult() {
 // Calculate dose result for tablets
 function calculateTablet() {
   let desired = +desiredAmount.value;
-  let selection = validate1();
+  let selection = resultForWant;
   if (selection === "mcg") {
     desired = mcgToMg(desired);
   }
   let have = +atHand.value;
-  let selectionTwo = validate2();
+  let selectionTwo = resultForHave;
   if (selectionTwo === "mcg") {
     have = mcgToMg(have);
   }
   let result = desired / have;
+  console.log(result);
   return +result + " tablets";
 }
 
@@ -279,6 +291,7 @@ const tablets = document.getElementById("tablets");
 const iv = document.getElementById("iv");
 const concentrations = document.getElementById("concentrations");
 const toggleableElement = document.querySelector(".visible");
+const submit = document.getElementById("submit-btn");
 
 // Determines if the last div should be invisible or visible
 function toggleVolumeInput(e) {
@@ -306,6 +319,12 @@ atHand.addEventListener("keypress", function (e) {
     result.innerHTML = dose;
   }
 });
+
+// submit.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   let dose = calculateTablet();
+//   result.innerHTML = dose;
+// });
 
 /* Listens to the dosage calculator selector
 Conditionally renders the volume div and disables the ml option for when tablets is selected */
