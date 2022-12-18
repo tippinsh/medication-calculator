@@ -317,6 +317,26 @@ function checkIfTabsOrVolSelected(event) {
   }
 }
 
+/* Check if required fields are empty */
+
+const error = ["border-2", "border-red-700"];
+
+function checkIfEmpty(type) {
+  if (activeSelection == type) {
+    if (desiredAmount.value.length === 0) {
+      desiredAmount.classList.add(...error);
+      return false;
+    } else if (atHand.value.length === 0) {
+      atHand.classList.add(...error);
+      return false;
+    } else {
+      desiredAmount.classList.remove(...error);
+      atHand.classList.remove(...error);
+      return true;
+    }
+  }
+}
+
 /* Listens to the dosage calculator selector
 Conditionally renders the volume div and disables the ml option for when tablets is selected */
 
@@ -338,23 +358,31 @@ form.addEventListener("change", (e) => {
 
 submit.addEventListener("click", function (e) {
   e.preventDefault();
-  if (activeSelection == "tablets") {
-    let dose = calculateTablet();
-    return (result.innerHTML = dose);
+  if (!checkIfEmpty("tablets")) {
+    return;
   } else {
-    let dose = calculateResult();
-    return (result.innerHTML = dose);
-  }
-});
-
-body.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
     if (activeSelection == "tablets") {
       let dose = calculateTablet();
       return (result.innerHTML = dose);
     } else {
       let dose = calculateResult();
       return (result.innerHTML = dose);
+    }
+  }
+});
+
+body.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    if (!checkIfEmpty("tablets")) {
+      return;
+    } else {
+      if (activeSelection == "tablets") {
+        let dose = calculateTablet();
+        return (result.innerHTML = dose);
+      } else {
+        let dose = calculateResult();
+        return (result.innerHTML = dose);
+      }
     }
   }
 });
