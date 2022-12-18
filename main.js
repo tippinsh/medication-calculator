@@ -252,14 +252,14 @@ function calculateResult() {
 // Calculate dose result for tablets
 function calculateTablet() {
   let desired = +desiredAmount.value;
-  let selection = validate1();
+  let selection = resultForWant;
   if (selection === "mcg") {
     desired = mcgToMg(desired);
   } else if (selection == "g") {
     desired = gramsToMg(desired);
   }
   let have = +atHand.value;
-  let selectionTwo = validate2();
+  let selectionTwo = resultForHave;
   if (selectionTwo === "mcg") {
     have = mcgToMg(have);
   } else if (selectionTwo == "g") {
@@ -287,7 +287,8 @@ const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
 const iv = document.getElementById("iv");
 const concentrations = document.getElementById("concentrations");
-const toggleableElement = document.getElementById("quantity-input");
+const toggleableElement = document.querySelector(".visible");
+const submit = document.getElementById("submit-btn");
 
 // Determines if the last div should be invisible or visible
 
