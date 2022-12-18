@@ -266,7 +266,6 @@ function calculateTablet() {
     have = gramsToMg(have);
   }
   let result = desired / have;
-  console.log(result);
   return +result + " tablets";
 }
 
@@ -285,10 +284,9 @@ function gramsToMg(grams) {
 const form = document.getElementById("medication-form");
 const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
-const iv = document.getElementById("iv");
-const concentrations = document.getElementById("concentrations");
 const toggleableElement = document.querySelector(".visible");
 const submit = document.getElementById("submit-btn");
+let activeSelection = 2;
 
 // Determines if the last div should be invisible or visible
 
@@ -302,54 +300,61 @@ function toggleVolumeInput(e) {
 
 // Toggles whether ml is disable or not
 function toggleMl(n) {
-  const ml = document.querySelectorAll(".test option").forEach((opt) => {
-    if (opt.value == "ml") {
-      opt.disabled = n;
-    }
-  });
+  const ml = document
+    .querySelectorAll(".optionSelect option")
+    .forEach((opt) => {
+      if (opt.value == "ml") {
+        opt.disabled = n;
+      }
+    });
 }
 
-/* Submit to calculate event listeners */
-
-//Calculate TABLET calculation with enter keypress or submit button
-body.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    let dose = calculateTablet();
-    result.innerHTML = dose;
+function checkIfTabsOrVolSelected(event) {
+  if (event.type === "tablets") {
+    return calculateTablet();
+  } else {
+    return calculateResult();
   }
-});
-
-submit.addEventListener("click", function (e) {
-  e.preventDefault();
-  let dose = calculateTablet();
-  result.innerHTML = dose;
-});
-
-//Calculate LIQUID calculation with enter keypress or submit button
-quantity.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    let dose = calculateResult();
-    result.innerHTML = dose;
-  }
-});
+}
 
 /* Listens to the dosage calculator selector
 Conditionally renders the volume div and disables the ml option for when tablets is selected */
 
 form.addEventListener("change", (e) => {
   let formValue = e.target.value;
-  if (form.value === "tablets") {
+  if (form.value == "tablets") {
     toggleVolumeInput(formValue);
     toggleMl(true);
-  } else if (
-    form.value === "liquids" ||
-    form.value === "iv" ||
-    form.value === "concentrations"
-  ) {
+    activeSelection = "tablets";
+  } else if (form.value == "liquids") {
     toggleVolumeInput(formValue);
     toggleMl(false);
     toggleVolumeInput(formValue);
+    activeSelection = "liquids";
+  }
+});
+
+/* Event listeners */
+
+submit.addEventListener("click", function (e) {
+  e.preventDefault();
+  if (activeSelection == "tablets") {
+    let dose = calculateTablet();
+    return (result.innerHTML = dose);
+  } else {
+    let dose = calculateResult();
+    return (result.innerHTML = dose);
+  }
+});
+
+body.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    if (activeSelection == "tablets") {
+      let dose = calculateTablet();
+      return (result.innerHTML = dose);
+    } else {
+      let dose = calculateResult();
+      return (result.innerHTML = dose);
+    }
   }
 });
