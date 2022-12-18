@@ -69,10 +69,6 @@
           >
             <option value="liquids" id="liquids">Liquids</option>
             <option value="tablets" id="tablets">Tablets</option>
-            <option value="iv" id="iv">IV</option>
-            <option value="concentrations" id="concentrations">
-              Concentrations
-            </option>
           </select>
           <div>
             <label>What is your patient prescribed?</label>
@@ -130,8 +126,10 @@
               <option value="g" id="g">g</option>
             </select>
           </div>
-          <button id="submit"></button>
-          <p class="md:mt-10">Result = <span id="result"></span></p>
+          <button id="submit" class="w-full bg-slate-200 mt-6 rounded-md p-2">
+            Calculate
+          </button>
+          <p class="md:mt-5">Result = <span id="result"></span></p>
           <div class="flex flex-row justify-between pt-6">
             <a href="" id="bnf-link" target="_blank" class="place-self-start">
               <span

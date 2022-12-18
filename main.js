@@ -240,13 +240,17 @@ function calculateResult() {
 function calculateTablet() {
   let desired = +desiredAmount.value;
   let selection = validate1();
-  if (selection === "mcg") {
+  if (selection == "mcg") {
     desired = mcgToMg(desired);
+  } else if (selection == "g") {
+    desired = gramsToMg(desired);
   }
   let have = +atHand.value;
   let selectionTwo = validate2();
-  if (selectionTwo === "mcg") {
+  if (selectionTwo == "mcg") {
     have = mcgToMg(have);
+  } else if (selectionTwo == "g") {
+    have = gramsToMg(have);
   }
   let result = desired / have;
   return +result + " tablets";
@@ -276,8 +280,6 @@ quantity.addEventListener("keypress", function (e) {
 const form = document.getElementById("medication-form");
 const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
-const iv = document.getElementById("iv");
-const concentrations = document.getElementById("concentrations");
 const toggleableElement = document.getElementById("quantity-input");
 
 // Determines if the last div should be invisible or visible
@@ -290,7 +292,6 @@ function toggleVolumeInput(e) {
 }
 
 // Toggles whether ml is disable or not
-
 function toggleMl(n) {
   const ml = document.querySelectorAll(".test option").forEach((opt) => {
     if (opt.value == "ml") {
@@ -319,6 +320,7 @@ form.addEventListener("change", (e) => {
     form.value === "iv" ||
     form.value === "concentrations"
   ) {
+    toggleVolumeInput(formValue);
     toggleMl(false);
   }
 });
