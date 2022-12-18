@@ -317,8 +317,6 @@ form.addEventListener("change", (e) => {
     toggleMl(true);
   } else if (
     form.value === "liquids" ||
-    form.value === "iv" ||
-    form.value === "concentrations"
   ) {
     toggleVolumeInput(formValue);
     toggleMl(false);
