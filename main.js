@@ -188,6 +188,8 @@ const drugs = [
   },
 ];
 
+const body = document.getElementsByTagName("BODY")[0];
+
 /* MEDICATION INFORMATION SECTION */
 
 // Medication selector and information side
@@ -214,18 +216,29 @@ const atHand = document.getElementById("at-hand");
 const quantity = document.getElementById("quantity");
 const result = document.getElementById("result");
 
-function validate1() {
-  const select = document.getElementById("weights-want").value;
-  return select;
-}
-function validate2() {
-  const select = document.getElementById("weights-have").value;
-  return select;
-}
-function validate3() {
-  const select = document.getElementById("weights-vol").value;
-  return select;
-}
+const weightWantSelector = document.getElementById("weights-want");
+const weightHaveSelector = document.getElementById("weights-have");
+const weightVolSelector = document.getElementById("weights-vol");
+
+let resultForWant = null;
+let resultForHave = null;
+let resultForVol = null;
+
+//Event listeners for the calculator volume type selection
+weightWantSelector.addEventListener("change", function handleEvent(e) {
+  resultForWant = e.target.value;
+  return resultForWant;
+});
+
+weightHaveSelector.addEventListener("change", function handleEvent(e) {
+  resultForHave = e.target.value;
+  return resultForHave;
+});
+
+weightVolSelector.addEventListener("change", function handleEvent(e) {
+  resultForVol = e.target.value;
+  return resultForVol;
+});
 
 // Calculate dose result for liquids
 function calculateResult() {
@@ -240,19 +253,20 @@ function calculateResult() {
 function calculateTablet() {
   let desired = +desiredAmount.value;
   let selection = validate1();
-  if (selection == "mcg") {
+  if (selection === "mcg") {
     desired = mcgToMg(desired);
   } else if (selection == "g") {
     desired = gramsToMg(desired);
   }
   let have = +atHand.value;
   let selectionTwo = validate2();
-  if (selectionTwo == "mcg") {
+  if (selectionTwo === "mcg") {
     have = mcgToMg(have);
   } else if (selectionTwo == "g") {
     have = gramsToMg(have);
   }
   let result = desired / have;
+  console.log(result);
   return +result + " tablets";
 }
 
@@ -267,25 +281,19 @@ function gramsToMg(grams) {
   return mg;
 }
 
-//Implements submit with enter keypress and displays result
-quantity.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    let dose = calculateResult();
-    result.innerHTML = dose;
-  }
-});
-
 // Declare variables for the form the medication comes in (e.g. liquid, tabs)
 const form = document.getElementById("medication-form");
 const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
+const iv = document.getElementById("iv");
+const concentrations = document.getElementById("concentrations");
 const toggleableElement = document.getElementById("quantity-input");
 
 // Determines if the last div should be invisible or visible
+
 function toggleVolumeInput(e) {
   if (e === "tablets") {
-    toggleableElement.className = " invisible";
+    toggleableElement.className = "invisible";
   } else {
     toggleableElement.className = "visible";
   }
@@ -300,7 +308,10 @@ function toggleMl(n) {
   });
 }
 
-atHand.addEventListener("keypress", function (e) {
+/* Submit to calculate event listeners */
+
+//Calculate TABLET calculation with enter keypress or submit button
+body.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
     let dose = calculateTablet();
@@ -308,7 +319,23 @@ atHand.addEventListener("keypress", function (e) {
   }
 });
 
-// Conditionally renders the volume input div - this is not applicable to tablet form so is hidden when this is selected and displayed when another but tablets is selected
+submit.addEventListener("click", function (e) {
+  e.preventDefault();
+  let dose = calculateTablet();
+  result.innerHTML = dose;
+});
+
+//Calculate LIQUID calculation with enter keypress or submit button
+quantity.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    let dose = calculateResult();
+    result.innerHTML = dose;
+  }
+});
+
+/* Listens to the dosage calculator selector
+Conditionally renders the volume div and disables the ml option for when tablets is selected */
 
 form.addEventListener("change", (e) => {
   let formValue = e.target.value;
@@ -322,5 +349,6 @@ form.addEventListener("change", (e) => {
   ) {
     toggleVolumeInput(formValue);
     toggleMl(false);
+    toggleVolumeInput(formValue);
   }
 });

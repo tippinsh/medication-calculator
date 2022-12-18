@@ -74,14 +74,13 @@
             <label>What is your patient prescribed?</label>
             <input
               type="text"
-              class="mt-4 mb-2 w-10 p-1 text-sm border-b-2 border-black bg-inherit"
+              class="mt-4 mb-2 w-10 p-1 text-sm border-b-2 border-black bg-inherit cursor-pointer"
               id="desired"
             />
             <select
               id="weights-want"
               class="test"
               class="h-6 appearance-none rounded-sm text-center text-sm cursor-pointer"
-              onchange="validate1()"
             >
               <option value="ml" id="ml">ml</option>
               <option value="mg" id="mg">mg</option>
@@ -97,10 +96,9 @@
               id="at-hand"
             />
             <select
-              onchange="validate2()"
               id="weights-have"
               class="test"
-              class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
+              class="h-6 appearance-none rounded-md text-center text-sm"
             >
               <option value="ml" id="ml1">ml</option>
               <option value="mg" id="mg">mg</option>
@@ -117,8 +115,7 @@
             />
             <select
               id="weights-vol"
-              onchange="validate3()"
-              class="h-6 appearance-none rounded-md text-center text-sm cursor-pointer"
+              class="h-6 appearance-none rounded-md text-center text-sm"
             >
               <option value="ml" id="ml">ml</option>
               <option value="mg" id="mg">mg</option>
@@ -126,10 +123,8 @@
               <option value="g" id="g">g</option>
             </select>
           </div>
-          <button id="submit" class="w-full bg-slate-200 mt-6 rounded-md p-2">
-            Calculate
-          </button>
-          <p class="md:mt-5">Result = <span id="result"></span></p>
+          <button id="submit"></button>
+          <p class="md:mt-10">Result = <span id="result"></span></p>
           <div class="flex flex-row justify-between pt-6">
             <a href="" id="bnf-link" target="_blank" class="place-self-start">
               <span
