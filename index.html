@@ -44,7 +44,9 @@
             <option value="8">Flupentixol</option>
             <option value="9">Zuclopenthixol</option>
             <option value="10">Aripiprazole</option>
-            <option value="11">Amisulpride</option></select
+            <option value="11">Amisulpride</option>
+            <option value="12">Lorazepam</option>
+            <option value="13">Diazepam</option></select
           ><br />
           <div>
             <p class="mb-2">Type: <span id="type"></span></p>
@@ -53,6 +55,15 @@
             <p class="mb-2">
               Common side-effects: <span id="side-effects"></span>
             </p>
+          </div>
+          <div class="pt-2">
+            <a href="" id="bnf-link" target="_blank">
+              <span
+                style="background-color: #149ea5; padding: 3px"
+                class="font-extrabold"
+                >BNF</span
+              ></a
+            >
           </div>
         </div>
 
@@ -115,6 +126,7 @@
             />
             <select
               id="weights-vol"
+              class="optionSelect"
               class="h-6 appearance-none rounded-md text-center text-sm"
             >
               <option value="mg" id="mg">mg</option>
@@ -130,21 +142,6 @@
             Submit
           </button>
           <p class="md:mt-1">Result = <span id="result"></span></p>
-          <div class="flex flex-row justify-between pt-6">
-            <a href="" id="bnf-link" target="_blank" class="place-self-start">
-              <span
-                style="background-color: #149ea5; padding: 3px"
-                class="font-extrabold"
-                >BNF</span
-              ></a
-            >
-            <span id="pills"><i class="fa-solid fa-tablets"></i></span>
-            <span id="injection"><i class="fa-solid fa-syringe"></i></span>
-            <span id="concentrations-img"
-              ><i class="fa-solid fa-flask-vial"></i
-            ></span>
-            <span id="bed-iv"><i class="fa-solid fa-bed-pulse"></i></span>
-          </div>
         </div>
       </div>
     </div>

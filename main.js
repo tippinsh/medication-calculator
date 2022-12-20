@@ -29,7 +29,7 @@ const drugs = [
       "fatigue",
       "diarrhoea",
     ],
-    BNFLink: "",
+    BNFLink: "https://bnf.nice.org.uk/drugs/sertraline/",
   },
   {
     name: "Citalopram",
@@ -43,7 +43,7 @@ const drugs = [
       "headaches",
       "nausea",
     ],
-    BNFLink: "",
+    BNFLink: "https://bnf.nice.org.uk/drugs/citalopram/",
   },
   {
     name: "Quetiapine",
@@ -57,7 +57,7 @@ const drugs = [
       "weight-gain",
       "high blood pressure",
     ],
-    BNFLink: "",
+    BNFLink: "https://bnf.nice.org.uk/drugs/quetiapine/",
   },
   {
     name: "Fluoxetine",
@@ -70,7 +70,7 @@ const drugs = [
       "diarrhoea",
       "feeling tired or weak",
     ],
-    BNFLink: "",
+    BNFLink: "https://bnf.nice.org.uk/drugs/fluoxetine/",
   },
   {
     name: "Haloperidol",
@@ -186,6 +186,24 @@ const drugs = [
     sideEffects: ["anxiety", " breast pain", " hypersalivation", " nausea"],
     BNFLink: "https://bnf.nice.org.uk/drugs/amisulpride/",
   },
+  {
+    name: "Lorazepam",
+    type: "Benzodiazepine",
+    useage: ["Anxiety", "Severe agitation", "Alcohol withdrawal"],
+    sideEffects: [
+      "sleepiness",
+      " muscle weakness",
+      " problems with coordination",
+    ],
+    BNFLink: "https://bnf.nice.org.uk/drugs/lorazepam/",
+  },
+  {
+    name: "Diazepam",
+    type: "Benzodiazepine",
+    useage: ["Anxiety", "Seizures", "Alcohol withdrawal", "Insomnia"],
+    sideEffects: ["sleepiness", " confusion", "problems with coordination"],
+    BNFLink: "https://bnf.nice.org.uk/drugs/diazepam/",
+  },
 ];
 
 const body = document.getElementsByTagName("BODY")[0];
@@ -195,6 +213,7 @@ const body = document.getElementsByTagName("BODY")[0];
 // Medication selector and information side
 const type = document.getElementById("type");
 const sideEffects = document.getElementById("side-effects");
+const importantInformation = document.getElementById("important-info");
 const BNFLink = document.getElementById("bnf-link");
 const dropDown = document.getElementById("medication");
 let optionValue = +dropDown.value;
@@ -203,9 +222,13 @@ let optionValue = +dropDown.value;
 dropDown.addEventListener("change", (e) => {
   optionValue = +e.target.value;
   type.innerHTML = drugs[optionValue].type;
+
+  //Render side-effects
   const sideEffectsArr = drugs[optionValue].sideEffects;
   const arrayAsString = sideEffectsArr.join(", ");
   sideEffects.innerHTML = arrayAsString;
+
+  //Render BNF Link
   BNFLink.href = drugs[optionValue].BNFLink;
 });
 
@@ -286,7 +309,7 @@ const liquids = document.getElementById("liquids");
 const tablets = document.getElementById("tablets");
 const toggleableElement = document.querySelector(".visible");
 const submit = document.getElementById("submit-btn");
-let activeSelection = 2;
+let activeSelection = "";
 
 // Determines if the last div should be invisible or visible
 
@@ -309,32 +332,35 @@ function toggleMl(n) {
     });
 }
 
-function checkIfTabsOrVolSelected(event) {
-  if (event.type === "tablets") {
-    return calculateTablet();
-  } else {
-    return calculateResult();
-  }
-}
+// function checkIfTabsOrVolSelected(event) {
+//   if (event.type === "tablets") {
+//     return calculateTablet();
+//   } else {
+//     return calculateResult();
+//   }
+// }
 
-/* Check if required fields are empty */
+/* Check if required fields are empty and create a red border on the required input fields that are empty */
 
 const error = ["border-2", "border-red-700"];
 
-function checkIfEmpty(type) {
-  if (activeSelection == type) {
-    if (desiredAmount.value.length === 0) {
-      desiredAmount.classList.add(...error);
-      return false;
-    } else if (atHand.value.length === 0) {
-      atHand.classList.add(...error);
-      return false;
+function showError(input) {
+  input.classList.add(...error);
+}
+
+function showSuccess(input) {
+  input.classList.remove(...error);
+}
+
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+      showError(input);
     } else {
-      desiredAmount.classList.remove(...error);
-      atHand.classList.remove(...error);
+      showSuccess(input);
       return true;
     }
-  }
+  });
 }
 
 /* Listens to the dosage calculator selector
@@ -358,16 +384,14 @@ form.addEventListener("change", (e) => {
 
 submit.addEventListener("click", function (e) {
   e.preventDefault();
-  if (!checkIfEmpty("tablets")) {
-    return;
+  checkRequired([desiredAmount, atHand, quantity]);
+
+  if (activeSelection == "tablets") {
+    let dose = calculateTablet();
+    return (result.innerHTML = dose);
   } else {
-    if (activeSelection == "tablets") {
-      let dose = calculateTablet();
-      return (result.innerHTML = dose);
-    } else {
-      let dose = calculateResult();
-      return (result.innerHTML = dose);
-    }
+    let dose = calculateResult();
+    return (result.innerHTML = dose);
   }
 });
 
