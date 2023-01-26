@@ -269,6 +269,7 @@ function calculateResult() {
   let have = +atHand.value;
   let q = +quantity.value;
   let result = (desired / have) * q;
+  result = Math.round(result * 100) / 100;
   return result + " ml";
 }
 
@@ -289,6 +290,7 @@ function calculateTablet() {
     have = gramsToMg(have);
   }
   let result = desired / have;
+  result = Math.round(result * 100) / 100;
   return +result + " tablets";
 }
 
